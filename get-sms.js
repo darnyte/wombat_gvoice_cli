@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 //heavily edited from the voice.js example, requiring more dependencies and the like.
 
 var voicejs = require('./voice.js');
@@ -10,6 +11,9 @@ var client = new voicejs.Client({
 	tokens: require('./tokens.json')
 });
 
+
+// TO do here - stop with each one, see if I can ping ppl to replace phone with name, ask if reply to last one.
+// maybe also to get a "last-seen" from ID and timestamp for an alert.
 // Get the 5 latest sms conversations and display their threads, from first text to last
 client.get('sms', {limit:5}, function(error, response, data){
 	if(error){

@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 var voicejs = require('./voice.js');
 
 var client = new voicejs.Client({
