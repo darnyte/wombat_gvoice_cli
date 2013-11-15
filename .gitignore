@@ -8,3 +8,6 @@ image/cache/*.jpg
 image/cache/data/*
 system/cache
 system/logs
+voice.js/*
+colors/*
+examples/*
