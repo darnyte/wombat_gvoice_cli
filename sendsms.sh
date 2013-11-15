@@ -44,4 +44,6 @@ else
 	message="${@:2}"
 fi
 
-./sms.js --to "$number" --message "$message"
+# if not in the same directory as sms.js, you need to have the path to it.
+#./sms.js --to "$number" --message "$message"
+~/node_modules/sms.js --to "$number" --message "$message"
