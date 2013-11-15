@@ -16,7 +16,7 @@ if ! [[ $1 =~ $re ]]; then
 	#does ppl exist?
 	pplprog=$(which ppl)
 	if [ -f $pplprog ]; then
-		number=$(ppl phone "$1"| grep "$1" |awk -F ' ' '{print $2}')
+		number=$(ppl phone "$1"|awk -F ' ' '{print $1}')
     fi
 #	To eventually incorporate googlecl contact lookups.  It's difficult at the moment.    
 #	if [ "$number" == "" ];then 
