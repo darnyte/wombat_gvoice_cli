@@ -23,6 +23,7 @@ Includes:
 ##Requires:
 * node.js framework  
 * voice.js - https://github.com/amper5and/voice.js  
+	* Note:  Requires a valid token from voice.js  
 * colors.js - https://github.com/marak/colors.js  
 
 Building on voice.js framework for the pure purpose of cli-based sms messaging, nothing more.  These are heavily modified from the examples in the voice.js package.  
