@@ -28,14 +28,18 @@ if (process.argv.indexOf('--getread') > -1) {
 	var which = 'unread';
 	}
 
-if (process.argv.indexOf('--maxthreads=') > -1) {
-	//To slice and get max number of threads to retrieve - WHETHER READ OR NOT
-	//console.log('Marking Read');
+//Max number of threads to retrieve
+if (process.argv.indexOf('--maxthreads') > -1) {
+	var placeholder = process.argv.indexOf('--maxthreads');
+	placeholder++;
+	var maxthreads = parseFloat(process.argv[placeholder]) || 5;
 }
 
-if (process.argv.indexOf('--maxmessages=') > -1) {
-	//To slice and get max number of messages per thread to retrieve
-	//console.log('Marking Read');
+//Max number of messages per thread to retrieve
+if (process.argv.indexOf('--maxmessages') > -1) {
+	var placeholder2 = process.argv.indexOf('--maxmessages');
+	placeholder2++;
+	var maxmessages = parseFloat(process.argv[placeholder2]) || 7;
 }
 
 if (process.argv.indexOf('-h') > -1) {
@@ -65,7 +69,7 @@ function ask(question, format, callback) {
 }
 
 // Get the X latest UNREAD sms conversations and display their threads, from first text to last
-client.get('sms', {limit:3}, function(error, response, data){
+client.get('sms', {limit:maxthreads}, function(error, response, data){
 	if(error){	return console.log(error);	}
 	if(!data || !data.conversations_response || !data.conversations_response.conversationgroup){ return console.log('No conversations.')}
 	console.log('SMS: Latest conversations.');
@@ -78,10 +82,10 @@ client.get('sms', {limit:3}, function(error, response, data){
 			ids.push(convo.conversation.id)
 			//kludge to limit number of messages presented in each convo
 			var i = 0;
-			console.log('\n', convo.conversation.status == 1 ? ' ' : '+'.green, new Date(convo.conversation.conversation_time).toDateString().green, convo.call[0].phone_number.bold.blue, convo.conversation.id);
+			console.log('\n', convo.conversation.status == 1 ? ' ' : '+'.red, new Date(convo.conversation.conversation_time).toDateString().green, convo.call[0].phone_number.bold.blue, convo.conversation.id);
 			convo.call.reverse().forEach(function(msg){
 			//limiting amount shown - some sms threads can be 100+ messages long.
-			if (i < 7){
+			if (i < maxmessages){
 				// message type 11 - from me
 				// message type 10 - from them
 				if (msg.type == 11){
@@ -95,13 +99,12 @@ client.get('sms', {limit:3}, function(error, response, data){
 		}
 	});
 	
-// Get user input if to mark the messages read (if not in argv already)	
 	
+	//put in opportunity to reply here
 	
-	
-	//client.set('mark', {star: true, id: ids}, function(error, response, data){
+	//client.set('mark', {read: true, id: ids}, function(error, response, data){
 		//if(error){ return console.log(error); }
-	//	console.log('\nStarred 5 conversations successfully.');
+	//	console.log('\nMarked conversations as read successfully.');
 	//});	
 	
 });
