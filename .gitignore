@@ -11,3 +11,5 @@ system/logs
 voice.js/*
 colors/*
 examples/*
+updates.js
+.gitignore
