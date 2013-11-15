@@ -8,6 +8,7 @@ if [ "$1" = "--help" ]; then
 	echo "This script is a bash wrapper to send sms using the voice.js library for node.js"
 	echo "Usage:  sendsms [NUMBER] [MESSAGE]"
 	echo "If you have ppl installed, you may substitute the name of a ppl contact for a number."
+fi
 
 # Test if input is phone number
 re='^[0-9]+$'
@@ -15,7 +16,7 @@ if ! [[ $1 =~ $re ]]; then
 	#does ppl exist?
 	pplprog=$(which ppl)
 	if [ -f $pplprog ]; then
-		number=$(ppl phone| grep "$1" |awk -F ' ' '{print $2}')
+		number=$(ppl phone "$1"| grep "$1" |awk -F ' ' '{print $2}')
     fi
 #	To eventually incorporate googlecl contact lookups.  It's difficult at the moment.    
 #	if [ "$number" == "" ];then 
