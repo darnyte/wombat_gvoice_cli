@@ -11,10 +11,12 @@ var client = new voicejs.Client({
 	tokens: require('./tokens.json')
 });
 
-
+	
+	
 // Get the 5 latest UNREAD sms conversations and display their threads, from first text to last
 client.get('unread', {limit:3}, function(error, response, data){
 	if(error){
+		//TODO here - give an informative error message
 		return console.log(error);
 	}
 	
@@ -22,7 +24,7 @@ client.get('unread', {limit:3}, function(error, response, data){
 	console.log('SMS: Latest conversations.');
 	data.conversations_response.conversationgroup.forEach(function(convo){
 		//console.log('\n', convo.conversation.label);
-		if (convo.conversation.label.indexOf('sms') == 2) {
+		if (convo.conversation.label.indexOf('sms') > -1) {
 		//kludge to limit number of messages presented in each convo
 		var i = 0;
 		console.log('\n', convo.conversation.status == 1 ? ' ' : '+', new Date(convo.conversation.conversation_time).toDateString(), convo.call[0].phone_number, convo.conversation.id);
